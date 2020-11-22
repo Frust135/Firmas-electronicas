@@ -1,8 +1,8 @@
 from shutil import copyfile #Función para copiar archivos
 
-#########################################
+#-----------------------------------------
 #         Lector de USB
-#########################################
+#-----------------------------------------
 
 def usbReader():
     data = None
@@ -14,9 +14,11 @@ def usbReader():
         print("Error al obtener el Token del USB, intente nuevamente.")
         return None
         
-#########################################
+#-----------------------------------------
 #         Copia de Archivos
-#########################################
+#-----------------------------------------
 def fileCopy(directory): #Recibe el directorio del archivo a copiar
     path = r'./files/test.txt'
     copyfile(directory, path)
+
+fileCopy('D:/aa.txt')
