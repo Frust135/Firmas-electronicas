@@ -2,7 +2,6 @@ from shutil import copyfile #Función para copiar archivos
 from docx import Document #Pip install python-docx
 from docx.shared import Inches
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-import hashlib
 import docx
 
 #-----------------------------------------
@@ -38,23 +37,13 @@ def estamparDocumento(directorio_documento, nombre_archivo, estampado):
 #-----------------------------------------
 #         Obtener texto de todo el documento
 #-----------------------------------------
-
-def getText(filename):
-    doc = docx.Document(filename)
+def getText(nombre_archivo):
+    path = r'./files/'+nombre_archivo+'.docx'
+    doc = docx.Document(path)
     fullText = []
     for para in doc.paragraphs:
         fullText.append(para.text)
     return fullText
 
-#print(getText("documento-firmado.docx"))
 
-#-----------------------------------------
-#         Obtener el hash del documento
-#-----------------------------------------
-
-hash_md5 = hashlib.md5() 
-documento = getText("documento-firmado.docx")
-texto = documento[1]
-hash_md5.update(texto.encode())
-print (hash_md5.hexdigest())
 
