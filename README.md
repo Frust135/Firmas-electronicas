@@ -3,30 +3,45 @@ Proyecto de Firmas Electrónicas en Python
 
 Para firmar:
 
-- El usuario ingresa el nombre del documento, y el documento.
-- Debe ingresar el usb, el cual poseerá su firma (un logo de certificación) y su clave privada.
-- Del nombre del documento: Se generará un ID de hash para saber donde almacenar el documento.
-- De la clave privada: Se generará una clave pública que será mostrada al usuario a través de la interfaz, esta clave pública permite acceder
-al documento.
-- Al documento ingresado se le hará un append del logo de certificación al final del documento
-- Del documento ingresado, se obtendrá todo el texto, y además se utilizará la clave pública con el fin de que con ambos datos se genere
-una encriptación utilizando hash, este dato quedará almecenado en el índice que haya retornado el nombre del documento.
-- Además aparte de almacenar todo la encriptación hash del documento, se realizará una encriptación de la clave privada del documento.
+- Requisitos: Ingresar el nombre del documento, el documento, una clave publica y el Token. 
+- El Token debe contener: Un archivo txt con su clave privada, y un estampado para el documento.
+- Una vez ingresado todos los datos, y presionado el botón de firmar, el documento será estampado, y la información
+será almacenada en la tabla hash de la siguiente forma:
+    - El nombre del documento retornará un ID para indicar donde almacenar el arreglo.
+    - Se obtendrá todo el texto del documento, y con esto se generará un algoritmo Hash.
+    - Se encriptará la clave publica y privada, y se almacenará todo de la siguiente forma en un arreglo:
 
-Ejemplo [Encriptación del documento + clave pública, clave privada] = [1x2r2f2w3ff, clave_privada]
+[Hash del documento, clave publica encriptada, clave privada encriptada]
+Ejemplo: [d0c9eff4652915959b306d7e668baaa3, fffff, aaaaa]
 
-Para acceder:
+----------------------------------------------------------------------------------------------------------------------
 
-- El usuario debe ingresar el nombre del documento, y la clave pública.
-- Si ambos elementos producen el mismo hash del documento, significa que tenemos acceso a dicho documento, y que dicho documento
-no ha sido alterado.
+Para acceder al documento:
 
-Para confirmar la firma:
+- Requisitos: Ingresar el nombre del documento, el documento, y la clave publica.
+- El usuario debe ingresar todos los requisitos, una vez ingresados, se obtendrá el índice de la tabla hash con el nombre del documento
+y se comprobará la información almacenada de la siguiente forma:
+    - Se tomará el archivo ingresado por el usuario, y se obrendrá un hash de dicho documento:
+        - Si el hash coincide con el hash almacenado, significa que el documento no ha sufrido cambios.
+        - Si el hash no coincide, significa que el documento sufrió cambios, por lo tanto el documento es invalidado legalmente.
+    - También se verificará la clave publica:
+        - Si la clave publica coincide con la clave publica almacenada, significa que existe un acceso válido al documento.
+        - Si no coincide, significa que no contamos con acceso comprobado al documento, invalidando legalmente el uso de este documento para el usuario.
+- Si los datos coinciden, significa que poseemos acceso legal al documento.
 
-- En caso de confirmar la firma del sujeto en cuestión, debe ingresar el nombre del documento, junto a su token.
-- Con el token, se comprobará si el documento posee la misma clave privada, de ser así, el usuario con el token
-es el usuario que firmo dicho documento.
-- Además, de la clave privada, se obtendrá la clave pública con la función de encriptación, y también se obtendrá la información
-del documento, con el fin de generar un hash, y así comprobar si el documento que fue firmado, sigue siendo el mismo
-documento, o si ha sufrido cambios, si el hash es el mismo, el documento sigue intacto, por el contrario, se supondrá
-que el documento fue alterado.
+----------------------------------------------------------------------------------------------------------------------
+
+Para verificar una firma:
+
+- Requisitos: Nombre del documento, documento y Token.
+- El usuario ingresa el nombre del documento, y con esto se obtendrá el índice de la tabla hash.
+- Una vez localizado el archivo, se continúa a verificar la integridad de la información:
+    - Se tomará el archivo ingresado por el usuario, y se obrendrá un hash de dicho documento:
+        - Si el hash coincide, significa que el documento no ha recibido ningún cambio no deseado.
+        - Si el hash no coincide, significa que ha existido un cambio del archivo. El cliente puede elegir revisar el archivo para volver a firmarlo, o denegar el archivo, provocando que sea eliminado del sistema.
+    - También se verificará la clave privada:
+        - Si la clave privada es correcta, significa que el usuario, es la persona legal tras la firma de dicho documento.
+        - Si la clave privada es incorrecta, significa que el usuario no es el dueño legal de la firma del documento.
+- Si los datos coinciden, significa que el usuario verifica con éxito la firma de dicho documento.
+
+
