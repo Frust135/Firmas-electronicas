@@ -1,5 +1,5 @@
 from tkinter import *
-
+from reader import *
 #-------------------------------------------------------------------
 #      Creación ventana
 #-------------------------------------------------------------------
@@ -34,7 +34,7 @@ ingreso_nombre_archivo.place(x=40, y=180)
 seleccion_archivo = Label(text = "Seleccion",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
 seleccion_archivo.place(x=25, y= 220)
 
-boton_seleccion_archivo =  Button(myWindow, text = "Seleccione el archivo" ,width="35", bg="#B6ADE4")
+boton_seleccion_archivo =  Button(myWindow, text = "Seleccione el archivo" ,width="35", bg="#B6ADE4", command= lambda: openFile(myWindow))
 boton_seleccion_archivo.place(x=40, y=250)
 
 clave_publica = Label(text = "Ingrese clave publica",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")

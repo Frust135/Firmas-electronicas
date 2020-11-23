@@ -12,4 +12,4 @@ def hash_documento(nombre_archivo):
     codigo_hash = hash_md5.hexdigest()
     return codigo_hash
 
-print(hash_documento('documento-firmado'))
+#print(hash_documento('documento-firmado'))
