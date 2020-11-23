@@ -2,6 +2,7 @@ from shutil import copyfile #Función para copiar archivos
 from docx import Document #Pip install python-docx
 from docx.shared import Inches
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from tkinter import filedialog
 import docx
 
 #-----------------------------------------
@@ -45,5 +46,15 @@ def getText(nombre_archivo):
         fullText.append(para.text)
     return fullText
 
+#-----------------------------------------
+#         Obtener un Documento en TKINTER
+#-----------------------------------------
 
+def openFile(ventana):
+    ventana.filename = filedialog.askopenfilename(initialdir='/', 
+                                title="Selecciona el Archivo",
+                                filetypes=(("Archivos Docx","*.docx"),
+                                        ("Todos los archivos","*.*")))
+    print(ventana.filename)
+    return ventana.filename
 
