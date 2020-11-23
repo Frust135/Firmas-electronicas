@@ -34,7 +34,7 @@ ingreso_nombre_archivo.place(x=40, y=180)
 seleccion_archivo = Label(text = "Seleccion",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
 seleccion_archivo.place(x=25, y= 220)
 
-boton_seleccion_archivo =  Button(myWindow, text = "Seleccione archivo" ,width="34", bg="#B6ADE4")
+boton_seleccion_archivo =  Button(myWindow, text = "Seleccione archivo" ,width="34", bg="#B6ADE4", command=lambda: openFile(myWindow))
 boton_seleccion_archivo.place(x=42, y=250)
 
 clave_publica = Label(text = "Clave publica",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
@@ -71,7 +71,7 @@ ingreso_nombre_archivo_2.place(x=370, y=180)
 clave_publica_2 = Label(text = "Clave publica",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
 clave_publica_2.place(x=355, y=220)
 
-boton_seleccion_archivo_2 =  Button(myWindow, text = "Seleccione el archivo" ,width="34", bg="#B6ADE4")
+boton_seleccion_archivo_2 =  Button(myWindow, text = "Seleccione el archivo" ,width="34", bg="#B6ADE4", command=lambda: openFile(myWindow))
 boton_seleccion_archivo_2.place(x=372, y=250)
 
 boton_obtener_documento = Button(myWindow, text = "Obtener documento", width="34", bg="#B6ADE4")
