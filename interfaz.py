@@ -5,7 +5,7 @@ from tkinter import *
 #-------------------------------------------------------------------
 
 myWindow = Tk()
-myWindow.geometry("1270x450")
+myWindow.geometry("1000x500")
 myWindow.title("Metodos de búsqueda")
 myWindow['bg'] = '#060836'
 
@@ -16,7 +16,7 @@ Titulo.pack()
 #-------------------------------------------------------------------
 #      Box_1: Firmar documento
 #-------------------------------------------------------------------
-box1=Label(bg="#1E136E", width="40", height="21")
+box1=Label(bg="#1E136E", width="40", height="25")
 box1.place(x=25, y=100)
 
 titulo_firmar_doc = Label(text = "Firmar documento", font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
@@ -27,6 +27,22 @@ f.place(x=40, y=133)
 
 nombre_archivo = Label(text = "Nombre del archivo", font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
 nombre_archivo.place(x=25, y=150)
+
+ingreso_nombre_archivo = Entry(width = "42")
+ingreso_nombre_archivo.place(x=40, y=180)
+
+seleccion_archivo = Label(text = "Seleccion",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
+seleccion_archivo.place(x=25, y= 220)
+
+boton_seleccion_archivo =  Button(myWindow, text = "Seleccione el archivo")
+boton_seleccion_archivo.place(x=105, y=250)
+
+clave_publica = Label(text = "Ingrese clave publica",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
+clave_publica.place(x=25, y=295)
+
+ingreso_clave_publica = Entry(width = "42")
+ingreso_clave_publica.place(x=40, y=325)
+
 
 #-------------------------------------------------------------------
 #      Box_2: Obtener documento
