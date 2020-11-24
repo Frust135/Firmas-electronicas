@@ -7,7 +7,9 @@ import hashlib
 def hash_documento(nombre_archivo):
     hash_md5 = hashlib.md5() 
     documento = getText(nombre_archivo)
-    texto = documento[1]
+    texto = ''
+    for recorrido in range(1,len(documento)):
+        texto+=documento[recorrido]
     hash_md5.update(texto.encode())
     codigo_hash = hash_md5.hexdigest()
     return codigo_hash

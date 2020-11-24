@@ -19,6 +19,33 @@ def insertar_hash(nombre_documento, elementos, tabla_hash):
     except:
         return messagebox.showerror(title="Documento faltante", message="Ingrese un documento para firmar.")
 
+def revisar_archivo(nombre_documento,elementos,tabla_hash):
+    #Elementos: [path del documento, clave publica]
+    if elementos[1] == '': return messagebox.showerror(title="Clave publica faltante", message="Ingrese una clave publica.")
+    try:
+        hash_comprobar=hash_documento(elementos[0])
+        indice_buscar = busqueda(nombre_documento,hash_comprobar,tabla_hash)
+        if tabla_hash[indice_buscar]==-1: return  messagebox.showerror(title="Documento no encontrado", message="El documento no se encuentra almacenado en el sistema.")
+        if tabla_hash[indice_buscar][1]!=elementos[1]: return messagebox.showerror(title="Clave erronea", message="La clave publica ingresada es incorrecta.")
+        if tabla_hash[indice_buscar][0]!=hash_comprobar: return messagebox.showerror(title="Documento alterado", message="El documento ha sido alterado desde su envío, por lo tanto se considera invalido para terminos legales.")
+        return messagebox.showinfo(title="Éxito", message="El documento se encuentra íntegro y sin alteraciones.")
+    except:
+        return messagebox.showerror(title="Documento faltante", message="Ingrese un documento para revisar.")
+
+def revisar_firma(nombre_documento,elementos,tabla_hash):
+    #Elementos: [path del documento, clave privada]
+    if elementos[1] == None: return messagebox.showerror(title="Token faltante", message="Ingrese su Token con su clave privada.")
+    try:
+        hash_comprobar=hash_documento(elementos[0])
+        indice_buscar=busqueda(nombre_documento,hash_comprobar,tabla_hash)
+        if tabla_hash[indice_buscar]==-1: return  messagebox.showerror(title="Documento no encontrado", message="El documento no se encuentra almacenado en el sistema.")
+        if tabla_hash[indice_buscar][2]!=elementos[1]: return messagebox.showerror(title="Clave erronea", message="Clave erronea, usted no es el firmante legal de dicho documento.")       
+        if tabla_hash[indice_buscar][0]!=hash_comprobar: return messagebox.showerror(title="Documento alterado", message="Usted es el firmante legal del documento, pero dicho documento se encuentra alterado, lo que invalida su uso.")
+        return messagebox.showinfo(title="Éxito", message="Usted es el firmante legal del documento. El documento por otro lado se encuentra íntegro y sin alteraciones")
+    except:
+        return messagebox.showerror(title="Documento faltante", message="Ingrese un documento para revisar.")
+
+
 def abrir_archivo(entry):
     path = openFile(myWindow)
     entry.insert(END, path)
@@ -75,7 +102,7 @@ insertar_token = Label(text = "Inserte token",font=("Cambria",15),fg="#1EEB74" ,
 insertar_token.place(x=25, y=385)
 
 boton_insercion_token = Button(myWindow, text = "Firmar", width="34", bg="#B6ADE4", command=lambda: insertar_hash(ingreso_nombre_archivo.get(),[nombre_ruta.get(), ingreso_clave_publica.get(),usbReader()], tabla_hash))
-boton_insercion_token.place(x=42, y=415)
+boton_insercion_token.place(x=42, y=425)
 
 
 #-------------------------------------------------------------------
@@ -96,14 +123,23 @@ nombre_archivo_2.place(x=355, y=150)
 ingreso_nombre_archivo_2 = Entry(width = "41",bg="#B6ADE4")
 ingreso_nombre_archivo_2.place(x=370, y=180)
 
-clave_publica_2 = Label(text = "Clave publica",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
-clave_publica_2.place(x=355, y=220)
+seleccion_archivo2 = Label(text = "Seleccion",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
+seleccion_archivo2.place(x=355, y=220)
 
-boton_seleccion_archivo_2 =  Button(myWindow, text = "Seleccione el archivo" ,width="34", bg="#B6ADE4", command=lambda: openFile(myWindow))
+nombre_ruta2 = Entry (width = "41",bg="#B6ADE4")
+nombre_ruta2.place(x=370, y = 285)
+
+boton_seleccion_archivo_2 =  Button(myWindow, text = "Seleccione el archivo" ,width="34", bg="#B6ADE4", command=lambda: abrir_archivo(nombre_ruta2))
 boton_seleccion_archivo_2.place(x=372, y=250)
 
-boton_obtener_documento = Button(myWindow, text = "Obtener documento", width="34", bg="#B6ADE4")
-boton_obtener_documento.place(x=372, y=400)
+clave_publica_2 = Label(text = "Clave publica",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
+clave_publica_2.place(x=355, y=310)
+
+ingreso_clave_publica2 = Entry(width = "41", bg="#B6ADE4")
+ingreso_clave_publica2.place(x=372, y=340)
+
+boton_obtener_documento = Button(myWindow, text = "Obtener documento", width="34", bg="#B6ADE4", command=lambda: revisar_archivo(ingreso_nombre_archivo_2.get(),[nombre_ruta2.get(),ingreso_clave_publica2.get()],tabla_hash))
+boton_obtener_documento.place(x=372, y=425)
 #-------------------------------------------------------------------
 #      Box_3: Revisar firma
 #-------------------------------------------------------------------
@@ -122,10 +158,19 @@ nombre_archivo_3.place(x=680, y=150)
 ingreso_nombre_archivo_3 = Entry(width = "41",bg="#B6ADE4")
 ingreso_nombre_archivo_3.place(x=695, y=180)
 
-insertar_token_3 = Label(text = "Inserte token",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
-insertar_token_3.place(x=680, y=220)
+seleccion_archivo2 = Label(text = "Seleccion",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
+seleccion_archivo2.place(x=680, y=220)
 
-boton_revisar = Button(myWindow, text = "Revisar", width="34", bg="#B6ADE4")
-boton_revisar.place(x=697, y=400)
+nombre_ruta3 = Entry (width = "41",bg="#B6ADE4")
+nombre_ruta3.place(x=695, y = 285)
+
+boton_seleccion_archivo_3 =  Button(myWindow, text = "Seleccione el archivo" ,width="34", bg="#B6ADE4", command=lambda: abrir_archivo(nombre_ruta3))
+boton_seleccion_archivo_3.place(x=695, y=250)
+
+insertar_token_3 = Label(text = "Inserte token",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
+insertar_token_3.place(x=680, y=385)
+
+boton_revisar = Button(myWindow, text = "Revisar", width="34", bg="#B6ADE4", command=lambda: revisar_firma(ingreso_nombre_archivo_3.get(),[nombre_ruta3.get(),usbReader()],tabla_hash))
+boton_revisar.place(x=697, y=425)
 
 myWindow.mainloop()
