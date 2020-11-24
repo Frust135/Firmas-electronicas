@@ -16,7 +16,6 @@ def usbReader():
             clave_privada = file.read()
             return clave_privada
     except:
-        print("Error al obtener el Token del USB, intente nuevamente.")
         return None
         
 #-----------------------------------------

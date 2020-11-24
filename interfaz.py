@@ -1,20 +1,27 @@
-from tkinter import *
+from tkinter import Label, Button, messagebox, Tk, Frame, Entry, END
 from reader import *
 from hash import *
 #-------------------------------------------------------------------
 #      Creación de funciones
 #-------------------------------------------------------------------
 def insertar_hash(nombre_documento, elementos, tabla_hash):
-    #Elementos: [hash del documento, clave publica, clave privada]
-    arreglo_retorno = hashing(nombre_documento, elementos, tabla_hash)
-    tabla_hash = arreglo_retorno
-    print(tabla_hash)
+    #Elementos: [path del documento, clave publica, clave privada]
+    if elementos[2] == None: return messagebox.showerror(title="Token faltante", message="Ingrese su Token con su clave privada.")
+    if elementos[1] == '': return messagebox.showerror(title="Clave publica faltante", message="Ingrese una clave publica.")
+    try:
+        directorio = elementos[0]
+        elementos[0]=hash_documento(elementos[0])
+        arreglo_retorno = hashing(nombre_documento, elementos, tabla_hash)
+        tabla_hash = arreglo_retorno
+        print(tabla_hash)
+        estamparDocumento(directorio,nombre_documento,'E:/estampado.png')
+        return messagebox.showinfo(title="Éxito", message="Documento almacenado con éxito.")
+    except:
+        return messagebox.showerror(title="Documento faltante", message="Ingrese un documento para firmar.")
 
-def abrir_archivo():
+def abrir_archivo(entry):
     path = openFile(myWindow)
-    encriptacion = hash_documento(path)
-    hash_texto = encriptacion
-    return encriptacion
+    entry.insert(END, path)
 #-------------------------------------------------------------------
 #      Creación ventana
 #-------------------------------------------------------------------
@@ -52,7 +59,7 @@ ingreso_nombre_archivo.place(x=40, y=180)
 seleccion_archivo = Label(text = "Seleccion",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
 seleccion_archivo.place(x=25, y= 220)
 
-boton_seleccion_archivo =  Button(myWindow, text = "Seleccione archivo" ,width="34", bg="#B6ADE4", command=lambda:abrir_archivo())
+boton_seleccion_archivo =  Button(myWindow, text = "Seleccione archivo" ,width="34", bg="#B6ADE4", command=lambda:abrir_archivo(nombre_ruta))
 boton_seleccion_archivo.place(x=42, y=250)
 
 nombre_ruta = Entry (width = "41",bg="#B6ADE4")
@@ -67,7 +74,7 @@ ingreso_clave_publica.place(x=40, y=340)
 insertar_token = Label(text = "Inserte token",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
 insertar_token.place(x=25, y=385)
 
-boton_insercion_token = Button(myWindow, text = "Firmar", width="34", bg="#B6ADE4", command=lambda: insertar_hash(ingreso_nombre_archivo.get(),[hash_texto, ingreso_clave_publica.get(),222], tabla_hash))
+boton_insercion_token = Button(myWindow, text = "Firmar", width="34", bg="#B6ADE4", command=lambda: insertar_hash(ingreso_nombre_archivo.get(),[nombre_ruta.get(), ingreso_clave_publica.get(),usbReader()], tabla_hash))
 boton_insercion_token.place(x=42, y=415)
 
 
