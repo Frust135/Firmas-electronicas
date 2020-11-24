@@ -14,6 +14,7 @@ def abrir_archivo():
     path = openFile(myWindow)
     encriptacion = hash_documento(path)
     hash_texto = encriptacion
+    return encriptacion
 #-------------------------------------------------------------------
 #      Creación ventana
 #-------------------------------------------------------------------
@@ -54,17 +55,20 @@ seleccion_archivo.place(x=25, y= 220)
 boton_seleccion_archivo =  Button(myWindow, text = "Seleccione archivo" ,width="34", bg="#B6ADE4", command=lambda:abrir_archivo())
 boton_seleccion_archivo.place(x=42, y=250)
 
+nombre_ruta = Entry (width = "41",bg="#B6ADE4")
+nombre_ruta.place(x=40, y = 285)
+
 clave_publica = Label(text = "Clave publica",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
-clave_publica.place(x=25, y=295)
+clave_publica.place(x=25, y=310)
 
 ingreso_clave_publica = Entry(width = "41", bg="#B6ADE4")
-ingreso_clave_publica.place(x=40, y=325)
+ingreso_clave_publica.place(x=40, y=340)
 
 insertar_token = Label(text = "Inserte token",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
-insertar_token.place(x=25, y=370)
+insertar_token.place(x=25, y=385)
 
 boton_insercion_token = Button(myWindow, text = "Firmar", width="34", bg="#B6ADE4", command=lambda: insertar_hash(ingreso_nombre_archivo.get(),[hash_texto, ingreso_clave_publica.get(),222], tabla_hash))
-boton_insercion_token.place(x=42, y=400)
+boton_insercion_token.place(x=42, y=415)
 
 
 #-------------------------------------------------------------------
