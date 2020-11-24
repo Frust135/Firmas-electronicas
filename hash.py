@@ -60,20 +60,15 @@ def get_ascii(palabra):
 # Función que realiza el Hashing
 #-----------------------------------------
 def hashing(clave, valor, tabla_hash):
-    nuevo_indice=''
     largo_hash = len(tabla_hash)
     indice_elemento=get_ascii(clave)%largo_hash
-    indice = ("El indice de " +str(clave)+ " es: "+ str(indice_elemento))
-    colision = ("No ha ocurrido ninguna colisión")
     while tabla_hash[indice_elemento]!=-1:
-        colision = ("Ocurrió una colisión en el índice")
         numero_primo = NumeroPrimoMasCercano(largo_hash)
         calculo = int(get_ascii(clave)%numero_primo)
         ecuacion = numero_primo-calculo
         indice_elemento = double_hash(indice_elemento, ecuacion, tabla_hash)
-        nuevo_indice=("El indice nuevo de "+str(clave)+ " es: "+str(indice_elemento))
     tabla_hash[indice_elemento] = valor
-    return [tabla_hash,indice,colision, nuevo_indice]
+    return tabla_hash
 
 #-----------------------------------------
 # Función que realiza la busqueda

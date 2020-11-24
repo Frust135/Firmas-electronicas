@@ -1,5 +1,14 @@
 from tkinter import *
 from reader import *
+from hash import *
+#-------------------------------------------------------------------
+#      Creación de funciones
+#-------------------------------------------------------------------
+def insertar_hash(nombre_documento, elementos, tabla_hash):
+    #Elementos: [hash del documento, clave publica, clave privada]
+    arreglo_retorno = hashing(nombre_documento, elementos, tabla_hash)
+    tabla_hash = arreglo_retorno
+    print(tabla_hash)
 #-------------------------------------------------------------------
 #      Creación ventana
 #-------------------------------------------------------------------
