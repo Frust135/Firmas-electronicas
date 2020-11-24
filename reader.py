@@ -38,8 +38,7 @@ def estamparDocumento(directorio_documento, nombre_archivo, estampado):
 #-----------------------------------------
 #         Obtener texto de todo el documento
 #-----------------------------------------
-def getText(nombre_archivo):
-    path = r'./files/'+nombre_archivo+'.docx'
+def getText(path):
     doc = docx.Document(path)
     fullText = []
     for para in doc.paragraphs:
@@ -55,6 +54,5 @@ def openFile(ventana):
                                 title="Selecciona el Archivo",
                                 filetypes=(("Archivos Docx","*.docx"),
                                         ("Todos los archivos","*.*")))
-    print(ventana.filename)
     return ventana.filename
 

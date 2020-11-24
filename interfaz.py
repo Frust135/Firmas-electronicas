@@ -9,6 +9,11 @@ def insertar_hash(nombre_documento, elementos, tabla_hash):
     arreglo_retorno = hashing(nombre_documento, elementos, tabla_hash)
     tabla_hash = arreglo_retorno
     print(tabla_hash)
+
+def abrir_archivo():
+    path = openFile(myWindow)
+    encriptacion = hash_documento(path)
+    hash_texto = encriptacion
 #-------------------------------------------------------------------
 #      Creación ventana
 #-------------------------------------------------------------------
@@ -17,6 +22,9 @@ myWindow = Tk()
 myWindow.geometry("985x500")
 myWindow.title("Metodos de búsqueda")
 myWindow['bg'] = '#060836'
+
+tabla_hash = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+hash_texto = ''
 
 Titulo=Label(text="Firma digital" ,font=("Cambria",15),fg="#060836" , bg="#703ABE", width="893", height="3")
 
@@ -43,7 +51,7 @@ ingreso_nombre_archivo.place(x=40, y=180)
 seleccion_archivo = Label(text = "Seleccion",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
 seleccion_archivo.place(x=25, y= 220)
 
-boton_seleccion_archivo =  Button(myWindow, text = "Seleccione archivo" ,width="34", bg="#B6ADE4", command=lambda: openFile(myWindow))
+boton_seleccion_archivo =  Button(myWindow, text = "Seleccione archivo" ,width="34", bg="#B6ADE4", command=lambda:abrir_archivo())
 boton_seleccion_archivo.place(x=42, y=250)
 
 clave_publica = Label(text = "Clave publica",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
@@ -55,7 +63,7 @@ ingreso_clave_publica.place(x=40, y=325)
 insertar_token = Label(text = "Inserte token",font=("Cambria",15),fg="#1EEB74" , bg="#1E136E", width="25", height="1")
 insertar_token.place(x=25, y=370)
 
-boton_insercion_token = Button(myWindow, text = "Firmar", width="34", bg="#B6ADE4")
+boton_insercion_token = Button(myWindow, text = "Firmar", width="34", bg="#B6ADE4", command=lambda: insertar_hash(ingreso_nombre_archivo.get(),[hash_texto, ingreso_clave_publica.get(),222], tabla_hash))
 boton_insercion_token.place(x=42, y=400)
 
 
