@@ -55,7 +55,7 @@ def abrir_archivo(entry):
 
 myWindow = Tk()
 myWindow.geometry("985x500")
-myWindow.title("Metodos de búsqueda")
+myWindow.title("Firmas Digitales")
 myWindow['bg'] = '#060836'
 
 tabla_hash = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
