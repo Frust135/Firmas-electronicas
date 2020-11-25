@@ -1,6 +1,10 @@
 # Firmas-electronicas
 Proyecto de Firmas Electrónicas en Python
 
+- Para la ejecución del código, se necesita tener instalado Python-Docx, para esto se debe ejecutar 'pip install python-docx'
+- Ejecutar el Archivo "intefaz.py"
+
+
 Para firmar:
 
 - Requisitos: Ingresar el nombre del documento, el documento, una clave publica y el Token. 
